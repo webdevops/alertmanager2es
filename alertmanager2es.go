@@ -21,9 +21,6 @@ type (
 	AlertmanagerElasticsearchExporter struct {
 		elasticSearchClient     *elasticsearch.Client
 		elasticsearchIndexName  string
-		elasticsearchBatchCount int
-		elasticsearchRetryCount int
-		elasticsearchRetryDelay time.Duration
 
 		prometheus struct {
 			alertsReceived   *prometheus.CounterVec
