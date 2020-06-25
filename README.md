@@ -3,7 +3,7 @@
 [![license](https://img.shields.io/github/license/webdevops/alertmanager2es.svg)](https://github.com/webdevops/alertmanager2es/blob/master/LICENSE)
 [![Docker](https://img.shields.io/docker/cloud/automated/webdevops/alertmanager2es)](https://hub.docker.com/r/webdevops/alertmanager2es/)
 [![Docker Build Status](https://img.shields.io/docker/cloud/build/webdevops/alertmanager2es)](https://hub.docker.com/r/webdevops/alertmanager2es/)
-``
+
 This is a forked version of [cloudflare's alertmanager2es](https://github.com/cloudflare/alertmanager2es) with
 new golang layout and uses the official ElasticSearch client. It also supports Authentication.
 
