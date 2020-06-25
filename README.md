@@ -18,6 +18,32 @@ The alerts are stored in Elasticsearch as [alert groups][].
 [Elasticsearch]: https://www.elastic.co/products/elasticsearch
 [HTTP webhook]: https://prometheus.io/docs/alerting/configuration/#webhook-receiver-<webhook_config>
 
+## Usage
+
+```
+Usage:
+  alertmanager2es [OPTIONS]
+
+Application Options:
+  -v, --verbose                 verbose mode [$VERBOSE]
+      --bind=                   Server address (default: :9097) [$SERVER_BIND]
+      --elasticsearch.address=  ElasticSearch urls [$ELASTICSEARCH_ADDRESS]
+      --elasticsearch.username= ElasticSearch username for HTTP Basic
+                                Authentication [$ELASTICSEARCH_USERNAME]
+      --elasticsearch.password= ElasticSearch password for HTTP Basic
+                                Authentication [$ELASTICSEARCH_PASSWORD]
+      --elasticsearch.apikey=   ElasticSearch base64-encoded token for
+                                authorization; if set, overrides username and
+                                password [$ELASTICSEARCH_APIKEY]
+      --elasticsearch.index=    ElasticSearch index name (placeholders: %y for
+                                year, %m for month and %d for day) (default:
+                                alertmanager-%y.%m) [$ELASTICSEARCH_INDEX]
+
+Help Options:
+  -h, --help                    Show this help message
+```
+
+
 ## Rationale
 
 It can be useful to see which alerts fired over a given time period, and
