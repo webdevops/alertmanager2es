@@ -1,0 +1,108 @@
+groups:
+
+  #############################
+  # Probe
+  #############################
+
+  - name: devteam1
+    rules:
+      - alert: Test alert devteam1
+        expr: |-
+          vector(0)
+        for: 1s
+        labels:
+          severity: warning
+          type: probe
+          team: devteam1
+        annotations:
+          summary: "Failed probe:"
+          description: "{{ $labels.job }}: {{ $labels.instance }} failed"
+
+  - name: devteam3
+    rules:
+      - alert: Test alert devteam3
+        expr: |-
+          vector(0)
+        for: 1s
+        labels:
+          severity: warning
+          type: probe
+          team: devteam3
+          longlabel: this/is/a/huuuuuuuuuuuuuuuuuge/long/label/which/needs/a/great/ui/to/deal/with/it
+        annotations:
+          summary: "Failed probe:"
+          description: "{{ $labels.job }}: {{ $labels.instance }} failed"
+
+  - name: devteam5
+    rules:
+      - alert: Test alert devteam5
+        expr: |-
+          vector(0)
+        for: 1s
+        labels:
+          severity: warning
+          type: probe
+          team: devteam5
+        annotations:
+          summary: "Failed probe:"
+          description: "{{ $labels.job }}: {{ $labels.instance }} failed"
+
+  - name: devteam51
+    rules:
+      - alert: Test alert devteam5
+        expr: |-
+          vector(0)
+        for: 1s
+        labels:
+          severity: warning
+          type: probe
+          team: devteam5
+          foo: 1
+        annotations:
+          summary: "Failed probe:"
+          description: "{{ $labels.job }}: {{ $labels.instance }} failed"
+
+  - name: devteam52
+    rules:
+      - alert: Test alert devteam5
+        expr: |-
+          vector(0)
+        for: 1s
+        labels:
+          severity: warning
+          type: probe
+          team: devteam5
+          foo: 2
+        annotations:
+          summary: "Failed probe:"
+          description: "{{ $labels.job }}: {{ $labels.instance }} failed"
+
+  - name: devteam53
+    rules:
+      - alert: Test alert devteam5
+        expr: |-
+          vector(0)
+        for: 1s
+        labels:
+          severity: warning
+          type: probe
+          team: devteam5
+          foo: 3
+        annotations:
+          summary: "Failed probe:"
+          description: "{{ $labels.job }}: {{ $labels.instance }} failed"
+
+  - name: devteam54
+    rules:
+      - alert: Test alert devteam5
+        expr: |-
+          vector(0)
+        for: 1s
+        labels:
+          severity: warning
+          type: probe
+          team: devteam5
+          foo: 4
+        annotations:
+          summary: "Failed probe:"
+          description: "{{ $labels.job }}: {{ $labels.instance }} failed"

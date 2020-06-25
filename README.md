@@ -1,5 +1,12 @@
 # alertmanager2es
 
+[![license](https://img.shields.io/github/license/webdevops/alertmanager2es.svg)](https://github.com/webdevops/alertmanager2es/blob/master/LICENSE)
+[![Docker](https://img.shields.io/docker/cloud/automated/webdevops/alertmanager2es)](https://hub.docker.com/r/webdevops/alertmanager2es/)
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/webdevops/alertmanager2es)](https://hub.docker.com/r/webdevops/alertmanager2es/)
+``
+This is a forked version of [cloudflare's alertmanager2es](https://github.com/cloudflare/alertmanager2es) with
+new golang layout and uses the official ElasticSearch client. It also supports Authentication.
+
 alertmanager2es receives [HTTP webhook][] notifications from [AlertManager][]
 and inserts them into an [Elasticsearch][] index for searching and analysis. It
 runs as a daemon.
@@ -53,7 +60,7 @@ To use alertmanager2es, you'll need:
 To build alertmanager2es, you'll need:
 
 - [Make][]
-- [Go][] 1.7 or above
+- [Go][] 1.14 or above
 - a working [GOPATH][]
 
 [Make]: https://www.gnu.org/software/make/
@@ -62,9 +69,10 @@ To build alertmanager2es, you'll need:
 
 ## Building
 
-    go get -u github.com/cloudflare/alertmanager2es
-    cd $GOPATH/src/github.com/cloudflare/alertmanager2es
-    make
+    git clone github.com/webdevops/alertmanager2elasticsearch
+    cd alertmanager2elasticsearch
+    make vendor
+    make build
 
 ## Configuration
 
@@ -143,11 +151,7 @@ sending data:
 We rotate our index once a month, since there's not enough data to warrant
 daily rotation in our case. Therefore our index name looks like:
 
-    alertmanager-200601
-
-We anchor the template name with `-2` to avoid inadvertently matching other
-indices, e.g.  `alertmanager-foo-200601`. This of course assumes that you will
-no longer care to index your alerts in the year 3000.
+    alertmanager-2020.06
 
 ## Failure modes
 

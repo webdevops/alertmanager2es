@@ -1,0 +1,60 @@
+version: '3.4'
+services:
+
+  ###########################
+  # ElasticSearch
+  ###########################
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+    container_name: es01
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01
+      - cluster.initial_master_nodes=es01
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  ###########################
+  # Kibana
+  ###########################
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.6.0
+    container_name: kibana
+    environment:
+      SERVER_NAME: kibana
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+
+  ###########################
+  # PROMETHEUS
+  ###########################
+  prometheus:
+    image: prom/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.retention=600d"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.external-url=http://prometheus.admin.achenar.net"
+      - "--web.enable-lifecycle"
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./etc/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
+      - ./etc/prometheus.alerts.yaml:/etc/prometheus/prometheus.alerts.yaml:ro
+
+  ###########################
+  # ALERTMANGER
+  ###########################
+  alertmanager:
+    image: prom/alertmanager
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
+      - "--storage.path=/alertmanager"
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./etc/alertmanager.yaml:/etc/alertmanager/alertmanager.yml:ro

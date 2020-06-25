@@ -6,7 +6,7 @@ Contributions are welcomed.
 
 To download, run:
 
-    go get -u github.com/cloudflare/alertmanager2es
+    go get -u github.com/webdevops/alertmanager2es
 
 To run the tests:
 
