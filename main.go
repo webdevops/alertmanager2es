@@ -90,6 +90,13 @@ func initArgparser() {
 
 // start and handle prometheus handler
 func startHttpServer(exporter *AlertmanagerElasticsearchExporter) {
+	// healthz
+	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		if _, err := fmt.Fprint(w, "Ok"); err != nil {
+			daemonLogger.Error(err)
+		}
+	})
+
 	http.HandleFunc("/webhook", http.HandlerFunc(exporter.HttpHandler))
 	http.Handle("/metrics", promhttp.Handler())
 	daemonLogger.Fatal(http.ListenAndServe(opts.ServerBind, nil))
