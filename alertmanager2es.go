@@ -9,6 +9,7 @@ import (
 	elasticsearch "github.com/elastic/go-elasticsearch/v7"
 	"github.com/elastic/go-elasticsearch/v7/esapi"
 	"github.com/prometheus/client_golang/prometheus"
+	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -19,8 +20,8 @@ const supportedWebhookVersion = "4"
 
 type (
 	AlertmanagerElasticsearchExporter struct {
-		elasticSearchClient     *elasticsearch.Client
-		elasticsearchIndexName  string
+		elasticSearchClient    *elasticsearch.Client
+		elasticsearchIndexName string
 
 		prometheus struct {
 			alertsReceived   *prometheus.CounterVec
@@ -96,7 +97,7 @@ func (e *AlertmanagerElasticsearchExporter) ConnectElasticsearch(cfg elasticsear
 			if tries >= 5 {
 				panic(err)
 			} else {
-				daemonLogger.Info("Failed to connect to ES, retry...")
+				log.Info("Failed to connect to ES, retry...")
 				time.Sleep(5 * time.Second)
 				continue
 			}
@@ -125,7 +126,7 @@ func (e *AlertmanagerElasticsearchExporter) HttpHandler(w http.ResponseWriter, r
 		e.prometheus.alertsInvalid.WithLabelValues().Inc()
 		err := errors.New("got empty request body")
 		http.Error(w, err.Error(), http.StatusBadRequest)
-		daemonLogger.Error(err)
+		log.Error(err)
 		return
 	}
 
@@ -133,7 +134,7 @@ func (e *AlertmanagerElasticsearchExporter) HttpHandler(w http.ResponseWriter, r
 	if err != nil {
 		e.prometheus.alertsInvalid.WithLabelValues().Inc()
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		daemonLogger.Error(err)
+		log.Error(err)
 		return
 	}
 	defer r.Body.Close()
@@ -143,15 +144,15 @@ func (e *AlertmanagerElasticsearchExporter) HttpHandler(w http.ResponseWriter, r
 	if err != nil {
 		e.prometheus.alertsInvalid.WithLabelValues().Inc()
 		http.Error(w, err.Error(), http.StatusBadRequest)
-		daemonLogger.Error(err)
+		log.Error(err)
 		return
 	}
 
 	if msg.Version != supportedWebhookVersion {
 		e.prometheus.alertsInvalid.WithLabelValues().Inc()
-		err := fmt.Errorf("do not understand webhook version %q, only version %q is supported.", msg.Version, supportedWebhookVersion)
+		err := fmt.Errorf("do not understand webhook version %q, only version %q is supported", msg.Version, supportedWebhookVersion)
 		http.Error(w, err.Error(), http.StatusBadRequest)
-		daemonLogger.Error(err)
+		log.Error(err)
 		return
 	}
 
@@ -169,11 +170,11 @@ func (e *AlertmanagerElasticsearchExporter) HttpHandler(w http.ResponseWriter, r
 		e.prometheus.alertsInvalid.WithLabelValues().Inc()
 		err := fmt.Errorf("unable to insert document in elasticsearch")
 		http.Error(w, err.Error(), http.StatusBadRequest)
-		daemonLogger.Error(err)
+		log.Error(err)
 		return
 	}
 	defer res.Body.Close()
 
-	daemonLogger.Verbosef("received and stored alert: %v", msg.CommonLabels)
+	log.Debugf("received and stored alert: %v", msg.CommonLabels)
 	e.prometheus.alertsSuccessful.WithLabelValues().Inc()
 }

@@ -11,4 +11,4 @@ route:
 receivers:
   - name: default
     webhook_configs:
-      - url: http://host.docker.internal:9097/webhook
+      - url: http://host.docker.internal:8080/webhook
