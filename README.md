@@ -25,19 +25,19 @@ Usage:
   alertmanager2es [OPTIONS]
 
 Application Options:
+      --debug                   debug mode [$DEBUG]
   -v, --verbose                 verbose mode [$VERBOSE]
-      --bind=                   Server address (default: :9097) [$SERVER_BIND]
+      --log.json                Switch log output to json format [$LOG_JSON]
       --elasticsearch.address=  ElasticSearch urls [$ELASTICSEARCH_ADDRESS]
-      --elasticsearch.username= ElasticSearch username for HTTP Basic
-                                Authentication [$ELASTICSEARCH_USERNAME]
-      --elasticsearch.password= ElasticSearch password for HTTP Basic
-                                Authentication [$ELASTICSEARCH_PASSWORD]
-      --elasticsearch.apikey=   ElasticSearch base64-encoded token for
-                                authorization; if set, overrides username and
-                                password [$ELASTICSEARCH_APIKEY]
-      --elasticsearch.index=    ElasticSearch index name (placeholders: %y for
-                                year, %m for month and %d for day) (default:
-                                alertmanager-%y.%m) [$ELASTICSEARCH_INDEX]
+      --elasticsearch.username= ElasticSearch username for HTTP Basic Authentication
+                                [$ELASTICSEARCH_USERNAME]
+      --elasticsearch.password= ElasticSearch password for HTTP Basic Authentication
+                                [$ELASTICSEARCH_PASSWORD]
+      --elasticsearch.apikey=   ElasticSearch base64-encoded token for authorization; if set, overrides
+                                username and password [$ELASTICSEARCH_APIKEY]
+      --elasticsearch.index=    ElasticSearch index name (placeholders: %y for year, %m for month and %d
+                                for day) (default: alertmanager-%y.%m) [$ELASTICSEARCH_INDEX]
+      --bind=                   Server address (default: :9097) [$SERVER_BIND]
 
 Help Options:
   -h, --help                    Show this help message
