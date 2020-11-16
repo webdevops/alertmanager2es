@@ -10,6 +10,7 @@ RUN make dependencies
 
 # Compile
 COPY ./ /go/src/github.com/webdevops/alertmanager2es
+RUN make test
 RUN make lint
 RUN make build
 RUN ./alertmanager2es --help
