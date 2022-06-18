@@ -2,16 +2,18 @@ package main
 
 import (
 	"fmt"
-	elasticsearch "github.com/elastic/go-elasticsearch/v7"
-	"github.com/jessevdk/go-flags"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
-	log "github.com/sirupsen/logrus"
-	"github.com/webdevops/alertmanager2es/config"
 	"net/http"
 	"os"
 	"path"
 	"runtime"
 	"strings"
+
+	elasticsearch "github.com/elastic/go-elasticsearch/v7"
+	"github.com/jessevdk/go-flags"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+	log "github.com/sirupsen/logrus"
+
+	"github.com/webdevops/alertmanager2es/config"
 )
 
 const (
